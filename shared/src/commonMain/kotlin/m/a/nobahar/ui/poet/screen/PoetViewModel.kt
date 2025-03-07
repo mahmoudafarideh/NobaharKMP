@@ -1,10 +1,5 @@
 package m.a.nobahar.ui.poet.screen
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -20,8 +15,8 @@ import m.a.nobahar.ui.poet.model.PoetScreenUiModel.PoetInfo
 import m.a.nobahar.ui.shared.BaseViewModel
 import m.a.nobahar.ui.shared.model.PoetUiModel
 
-class PoetViewModel @AssistedInject constructor(
-    @Assisted private val poetUiModel: PoetUiModel,
+class PoetViewModel(
+    private val poetUiModel: PoetUiModel,
     private val poetRepository: PoetRepository,
     private val randomRepository: RandomRepository
 ) : BaseViewModel<PoetScreenUiModel>(PoetScreenUiModel(poetUiModel)) {
@@ -83,21 +78,4 @@ class PoetViewModel @AssistedInject constructor(
         }.toImmutableList()
     )
 
-
-    @AssistedFactory
-    interface Factory {
-        fun create(poetUiModel: PoetUiModel): PoetViewModel
-    }
-
-    companion object {
-        @Suppress("UNCHECKED_CAST")
-        fun provideFactory(
-            assistedFactory: Factory,
-            poetUiModel: PoetUiModel,
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return assistedFactory.create(poetUiModel) as T
-            }
-        }
-    }
 }

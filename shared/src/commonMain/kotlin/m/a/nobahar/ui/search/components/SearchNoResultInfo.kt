@@ -17,10 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import m.a.nobahar.ui.shared.ui.NobaharPreview
 import m.a.nobahar.ui.theme.PoemThemePreview
+import nobahar.shared.generated.resources.Res
+import nobahar.shared.generated.resources.no_search_result_label
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SearchNoResultInfo(

@@ -12,12 +12,15 @@ import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource
 import m.a.nobahar.ui.shared.ui.NobaharPreview
 import m.a.nobahar.ui.theme.PoemThemePreview
+import nobahar.shared.generated.resources.Res
+import nobahar.shared.generated.resources.search_placeholder
+import nobahar.shared.generated.resources.search_poet_book_placeholder
+import nobahar.shared.generated.resources.search_poet_poems_placeholder
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -60,7 +63,6 @@ internal fun SearchInput(
 }
 
 @Composable
-@ReadOnlyComposable
 private fun searchPlaceholder(poetName: String?, bookName: String?): String = when {
     poetName != null && bookName != null -> stringResource(
         Res.string.search_poet_book_placeholder,

@@ -11,22 +11,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.valentinilk.shimmer.shimmer
 import kotlinx.collections.immutable.ImmutableList
-import m.a.compilot.navigation.LocalNavController
-import m.a.compilot.navigation.comPilotNavController
 import m.a.nobahar.domain.model.Failed
 import m.a.nobahar.domain.model.LoadableData
 import m.a.nobahar.domain.model.Loaded
 import m.a.nobahar.domain.model.Loading
 import m.a.nobahar.domain.model.NotLoaded
+import m.a.nobahar.ui.LocalNavController
 import m.a.nobahar.ui.book.components.BookItemsColumn
 import m.a.nobahar.ui.book.components.PoemBioLoading
 import m.a.nobahar.ui.book.model.BookSubItemUiModel
 import m.a.nobahar.ui.book.navigation.BookRoute
-import m.a.nobahar.ui.book.navigation.routes.navigator
 import m.a.nobahar.ui.poem.navigation.PoemRoute
-import m.a.nobahar.ui.poem.navigation.routes.navigator
 import m.a.nobahar.ui.search.navigation.SearchRoute
-import m.a.nobahar.ui.search.navigation.routes.navigator
 import m.a.nobahar.ui.shared.components.FetchingDataFailed
 import m.a.nobahar.ui.shared.components.PoetAppBar
 import m.a.nobahar.ui.shared.model.PoetUiModel
@@ -44,19 +40,23 @@ fun BookScreen(
     bookName: String
 ) {
     val state = rememberLazyListState()
-    val navigation = LocalNavController.comPilotNavController
+    val navigation = LocalNavController.current
     Scaffold(
         topBar = {
             PoetAppBar(
                 poetUiModel = poetUiModel,
-                onBackClick = { navigation.safePopBackStack() },
+                onBackClick = { navigation.popBackStack() },
                 modifier = Modifier.scrollShadow(state),
                 onSearchClick = {
-                    navigation.safeNavigate().navigate(
+                    navigation.navigate(
                         SearchRoute(
-                            poetUiModel.toPoet(),
-                            SearchRoute.Book(bookId, bookName)
-                        ).navigator
+                            poetUiModel.id,
+                            poetUiModel.name,
+                            poetUiModel.nickname,
+                            poetUiModel.profile,
+                            bookId,
+                            bookName
+                        )
                     )
                 },
             )
@@ -86,17 +86,20 @@ fun BookScreen(
                     BookItemsColumn(
                         poetInfo = bookInfo,
                         onBookClick = {
-                            navigation.safeNavigate().navigate(
+                            navigation.navigate(
                                 BookRoute(
-                                    poetInfo = poetUiModel.toPoet(),
+                                    id = poetUiModel.id,
+                                    name = poetUiModel.name,
+                                    nickName = poetUiModel.nickname,
+                                    profile = poetUiModel.profile,
                                     bookId = it.id,
                                     bookName = it.label,
-                                ).navigator
+                                )
                             )
                         },
                         onPoemClick = {
-                            navigation.safeNavigate().navigate(
-                                PoemRoute(poemId = it.id).navigator
+                            navigation.navigate(
+                                PoemRoute(poemId = it.id)
                             )
                         },
                         modifier = Modifier,

@@ -9,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import dev.shreyaspatil.capturable.controller.CaptureController
-import dev.shreyaspatil.capturable.controller.rememberCaptureController
+import m.a.nobahar.ui.capture.CaptureController
+import m.a.nobahar.ui.capture.rememberCaptureController
 import m.a.nobahar.ui.artwork.component.ArtworkAppBar
 import m.a.nobahar.ui.artwork.component.ArtworkHorizontalContent
 import m.a.nobahar.ui.artwork.component.ArtworkVerticalContent
@@ -21,8 +21,9 @@ import m.a.nobahar.ui.artwork.model.ArtTabUiModel
 import m.a.nobahar.ui.shared.ui.LocalWindowSize
 import m.a.nobahar.ui.shared.ui.NobaharPreview
 import m.a.nobahar.ui.theme.PoemThemePreview
+import org.jetbrains.compose.resources.DrawableResource
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ArtworkScreen(
     firstVerse: String,
@@ -35,7 +36,7 @@ fun ArtworkScreen(
     onColorClick: (Color) -> Unit,
     onSaveButtonClick: () -> Unit,
     onMatnnegarClick: () -> Unit,
-    onBackgroundClick: (Int) -> Unit,
+    onBackgroundClick: (DrawableResource) -> Unit,
     modifier: Modifier = Modifier,
     captureController: CaptureController
 ) {

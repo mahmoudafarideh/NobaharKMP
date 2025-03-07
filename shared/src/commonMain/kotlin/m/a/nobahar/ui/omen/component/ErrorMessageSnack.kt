@@ -18,11 +18,11 @@ internal fun ErrorMessageSnack(
     onRetryClick: () -> Unit,
     onErrorDismiss: () -> Unit
 ) {
-    val snackbarHostState = LocalSnackBarHostState.current
+    val snackBarHostState = LocalSnackBarHostState.current
     val message = stringResource(Res.string.error_occured_label)
     LaunchedEffect(state) {
         if (state is Failed) {
-            val result = snackbarHostState.showSnackbar(
+            val result = snackBarHostState.showSnackbar(
                 message = message,
                 withDismissAction = false,
                 duration = SnackbarDuration.Short

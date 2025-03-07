@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,7 +25,6 @@ import m.a.nobahar.ui.shared.model.PoetUiModel
 import m.a.nobahar.ui.shared.ui.NobaharPreview
 import m.a.nobahar.ui.theme.PoemThemePreview
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
     state: SearchScreenUiModel,
@@ -112,7 +110,7 @@ fun SearchScreenPreview() {
             onBackClick = {},
             onRetryClick = { },
             onListReachEnd = { },
-            onPoemClick = { poet, poemId -> },
+            onPoemClick = { _, _ -> },
             state = SearchScreenUiModel(
                 poetUiModel = PoetUiModel.fixture,
                 bookUiModel = null,

@@ -40,88 +40,25 @@ val LocalSnackBarHostState =
 
 val LocalNavController = compositionLocalOf<NavController> { error("No SnackbarHostState found!") }
 
-internal fun Context.goToMarket(packageValue: String = packageName) {
-    when (BuildConfig.Market.lowercase()) {
-        "cafebazaar" -> openCafeBazaar(packageValue)
-        "myket" -> openMyket(packageValue)
-        "googleplay" -> openGooglePlay(packageValue)
-        else -> openCafeBazaar(packageValue)
-    }
+@Composable
+expect fun KeepScreenOn(state: Boolean)
 
-}
+@Composable
+expect fun BackHandler(enabled: Boolean, onBackClick: () -> Unit)
 
-private fun Context.openCafeBazaar(packageValue: String) {
-    Intent(Intent.ACTION_VIEW).apply {
-        data = Uri.parse("bazaar://details?id=$packageValue")
-        setPackage("com.farsitel.bazaar")
-    }.let {
-        runCatching {
-            startActivity(it)
-        }.onFailure {
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("https://cafebazaar.ir/app/$packageValue")
-                )
-            )
-        }
-    }
-}
+@Composable
+expect fun goToMarket(): () -> Unit
 
-private fun Context.openGooglePlay(packageValue: String) {
-    try {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageValue")))
-    } catch (_: Exception) {
-        startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://play.google.com/store/apps/details?id=$packageValue")
-            )
-        )
-    }
-}
+@Composable
+expect fun goToUrl(url: String): () -> Unit
 
-private fun Context.openMyket(packageValue: String) {
-    Intent(Intent.ACTION_VIEW).apply {
-        data = Uri.parse("myket://download/$packageValue")
-        setPackage("ir.mservices.market")
-    }.let {
-        runCatching {
-            startActivity(it)
-        }.onFailure {
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("https://myket.ir/app/$packageValue")
-                )
-            )
-        }
-    }
-}
+@Composable
+expect fun goToMatnnegarMarket(): () -> Unit
 
-internal fun Context.goToMatnnegarMarket() {
-    goToMarket("com.ma.textgraphy")
-}
+@Composable
+expect fun goToInstagram(): () -> Unit
 
-internal fun Context.goToInstagram() {
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/_u/nobaharapp"))
-    runCatching {
-        intent.setPackage("com.instagram.android")
-        startActivity(intent)
-    }.onFailure {
-        intent.setPackage(null)
-        startActivity(intent)
-    }
-}
+@Composable
+expect fun goToTelegram(): () -> Unit
 
-internal fun Context.goToTelegram() {
-
-    runCatching {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("tg://resolve?domain=nobaharapp"))
-        intent.setPackage("org.telegram.messenger")
-        startActivity(intent)
-    }.onFailure {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/nobaharapp"))
-        startActivity(intent)
-    }
-}
+expect fun logInfo(key: String, data: Any?)

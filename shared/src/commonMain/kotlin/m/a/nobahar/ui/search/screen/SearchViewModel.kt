@@ -1,11 +1,6 @@
 package m.a.nobahar.ui.search.screen
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.coroutineScope
@@ -27,9 +22,9 @@ import m.a.nobahar.ui.shared.BaseViewModel
 import m.a.nobahar.ui.shared.model.PoetUiModel
 import m.a.nobahar.ui.toPoetUiModel
 
-class SearchViewModel @AssistedInject constructor(
-    @Assisted private val poetUiModel: PoetUiModel?,
-    @Assisted private val book: SearchBookUiModel?,
+class SearchViewModel(
+    private val poetUiModel: PoetUiModel?,
+    private val book: SearchBookUiModel?,
     private val searchRepository: SearchRepository
 ) : BaseViewModel<SearchScreenUiModel>(SearchScreenUiModel(poetUiModel, book)) {
 
@@ -106,24 +101,6 @@ class SearchViewModel @AssistedInject constructor(
     fun listReachedEnd() {
         viewModelScope.launch {
             searchForPoems(queryFlow.value)
-        }
-    }
-
-    @AssistedFactory
-    interface Factory {
-        fun create(poetUiModel: PoetUiModel?, book: SearchBookUiModel?): SearchViewModel
-    }
-
-    companion object {
-        @Suppress("UNCHECKED_CAST")
-        fun provideFactory(
-            assistedFactory: Factory,
-            poetUiModel: PoetUiModel?,
-            book: SearchBookUiModel?
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return assistedFactory.create(poetUiModel, book) as T
-            }
         }
     }
 }

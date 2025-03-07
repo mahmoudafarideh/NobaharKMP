@@ -1,8 +1,8 @@
 package m.a.nobahar.ui.artwork.model
 
-import androidx.annotation.DrawableRes
+import org.jetbrains.compose.resources.DrawableResource
 
 data class ArtBackgroundUiModel(
-    @DrawableRes val image: Int,
+    val image: DrawableResource,
     val selected: Boolean,
 )

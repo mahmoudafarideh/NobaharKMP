@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,22 +18,22 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import dev.shreyaspatil.capturable.controller.CaptureController
 import m.a.nobahar.ui.artwork.model.ArtFontUiModel
 import m.a.nobahar.ui.artwork.model.ArtSavingState
 import m.a.nobahar.ui.artwork.model.ArtScreenUiModel
 import m.a.nobahar.ui.artwork.model.ArtTabUiModel
+import m.a.nobahar.ui.capture.CaptureController
+import org.jetbrains.compose.resources.DrawableResource
 
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 internal fun ArtworkHorizontalContent(
     state: ArtScreenUiModel,
     onTabClick: (ArtTabUiModel.Tab) -> Unit,
     onFontClick: (ArtFontUiModel.Font) -> Unit,
     onFontSizeChange: (Int) -> Unit,
     onColorClick: (Color) -> Unit,
-    onBackgroundClick: (Int) -> Unit,
+    onBackgroundClick: (DrawableResource) -> Unit,
     onSaveButtonClick: () -> Unit,
     onMatnnegarClick: () -> Unit,
     firstVerse: String,

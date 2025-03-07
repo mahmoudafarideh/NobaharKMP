@@ -17,9 +17,7 @@ import nobahar.shared.generated.resources.omen_sentence_label
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-internal fun OmenSteps(
-    modifier: Modifier = Modifier
-) {
+internal fun OmenSteps(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         Text(
             text = stringResource(Res.string.omen_first_step_label),

@@ -1,7 +1,5 @@
 package m.a.nobahar.ui.home.component
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -19,15 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.valentinilk.shimmer.shimmer
-import m.a.nobahar.R
 import m.a.nobahar.ui.goToMarket
+import m.a.nobahar.ui.goToUrl
 import m.a.nobahar.ui.home.model.HomeCommunicationUiModel
 import m.a.nobahar.ui.shared.components.UrlImage
 import nobahar.shared.generated.resources.Res
+import nobahar.shared.generated.resources.new_version_label
 import nobahar.shared.generated.resources.update_app_button_label
 import org.jetbrains.compose.resources.stringResource
 
@@ -53,9 +50,7 @@ internal fun HomeCommunicationBar(
                         color = MaterialTheme.colorScheme.onBackground
                     )
                     Button(
-                        onClick = {
-                            context.goToMarket()
-                        }
+                        onClick = goToMarket()
                     ) {
                         Text(
                             text = stringResource(Res.string.update_app_button_label),
@@ -66,6 +61,7 @@ internal fun HomeCommunicationBar(
             }
 
             is HomeCommunicationUiModel.HomeBanner -> {
+                val action = goToUrl(model.actionUrl)
                 UrlImage(
                     url = model.bannerUrl,
                     modifier = Modifier
@@ -73,15 +69,7 @@ internal fun HomeCommunicationBar(
                         .clip(RoundedCornerShape(16.dp))
                         .aspectRatio(model.aspect)
                         .fillMaxWidth()
-                        .clickable {
-                            runCatching {
-                                Intent(Intent.ACTION_VIEW).apply {
-                                    this.data = Uri.parse(model.actionUrl)
-                                }.let {
-                                    context.startActivity(it)
-                                }
-                            }
-                        },
+                        .clickable { runCatching { action() } },
                     placeholder = {
                         Spacer(
                             modifier = Modifier

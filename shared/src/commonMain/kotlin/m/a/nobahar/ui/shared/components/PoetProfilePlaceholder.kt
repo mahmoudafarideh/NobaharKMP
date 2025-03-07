@@ -7,10 +7,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import com.valentinilk.shimmer.shimmer
-import m.a.nobahar.R
 import m.a.nobahar.ui.shared.model.PoetUiModel
+import nobahar.shared.generated.resources.Res
+import nobahar.shared.generated.resources.circle
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun PoetProfilePlaceholder(
@@ -18,7 +19,7 @@ fun PoetProfilePlaceholder(
     modifier: Modifier = Modifier
 ) {
     Image(
-        painter = painterResource(R.drawable.circle),
+        painter = painterResource(Res.drawable.circle),
         modifier = modifier
             .aspectRatio(.8f)
             .shimmer(),

@@ -1,11 +1,6 @@
 package m.a.nobahar.ui.poem.screen
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,8 +22,8 @@ import m.a.nobahar.ui.poem.model.toPoemVerseUiModel
 import m.a.nobahar.ui.shared.BaseViewModel
 import m.a.nobahar.ui.toPoetUiModel
 
-class PoemViewModel @AssistedInject constructor(
-    @Assisted private val poemId: Long,
+class PoemViewModel constructor(
+    private val poemId: Long,
     private val poemRepository: PoemRepository,
     private val mediaPlayerRepository: MediaPlayerRepository,
 ) : BaseViewModel<PoemScreenUiModel>(PoemScreenUiModel()) {
@@ -76,7 +71,7 @@ class PoemViewModel @AssistedInject constructor(
     }
 
     private fun observePoemAudioPlayer() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Default) {
             mediaPlayerRepository.state.collect { mediaState ->
                 state.value.poem.data?.recitations?.firstOrNull {
                     it.id == mediaState?.poemAudioInfo?.recitation?.id || it.state != PoemRecitationUiModel.State.None
@@ -239,20 +234,4 @@ class PoemViewModel @AssistedInject constructor(
         }
     }
 
-    @AssistedFactory
-    interface Factory {
-        fun create(poemId: Long): PoemViewModel
-    }
-
-    companion object {
-        @Suppress("UNCHECKED_CAST")
-        fun provideFactory(
-            assistedFactory: Factory,
-            poemId: Long
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return assistedFactory.create(poemId) as T
-            }
-        }
-    }
 }

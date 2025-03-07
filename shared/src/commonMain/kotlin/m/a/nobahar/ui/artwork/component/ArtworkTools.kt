@@ -17,11 +17,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import m.a.nobahar.ui.artwork.model.ArtFontUiModel
 import m.a.nobahar.ui.artwork.model.ArtScreenUiModel
 import m.a.nobahar.ui.artwork.model.ArtTabUiModel
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.stringResource
 import kotlin.math.roundToInt
 
 @Composable
@@ -31,7 +32,7 @@ fun ArtworkTools(
     onFontClick: (ArtFontUiModel.Font) -> Unit,
     onFontSizeChange: (Int) -> Unit,
     onColorClick: (Color) -> Unit,
-    onBackgroundClick: (Int) -> Unit,
+    onBackgroundClick: (DrawableResource) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(

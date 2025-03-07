@@ -17,13 +17,13 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import m.a.compilot.navigation.LocalNavController
-import m.a.compilot.navigation.comPilotNavController
-import m.a.nobahar.R
+import m.a.nobahar.ui.LocalNavController
 import m.a.nobahar.ui.artwork.model.ArtSavingState
 import m.a.nobahar.ui.artwork.model.ArtScreenUiModel
+import nobahar.shared.generated.resources.Res
+import nobahar.shared.generated.resources.save_artwork_button_label
+import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
@@ -33,7 +33,7 @@ internal fun ArtworkAppBar(
     onSaveButtonClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val navController = LocalNavController.comPilotNavController
+    val navController = LocalNavController.current
     TopAppBar(
         title = {},
         navigationIcon = {
@@ -44,7 +44,7 @@ internal fun ArtworkAppBar(
                 modifier = Modifier
                     .clip(CircleShape)
                     .clickable {
-                        navController.safePopBackStack()
+                        navController.popBackStack()
                     }
                     .padding(12.dp)
             )

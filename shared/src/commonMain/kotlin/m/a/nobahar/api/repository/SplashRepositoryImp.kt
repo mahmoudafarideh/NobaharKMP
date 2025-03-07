@@ -1,29 +1,29 @@
 package m.a.nobahar.api.repository
 
-import android.content.Context
-import androidx.core.content.pm.PackageInfoCompat
-import dagger.hilt.android.qualifiers.ApplicationContext
 import m.a.nobahar.api.contract.SplashApi
+import m.a.nobahar.api.helper.GetAppInfo
 import m.a.nobahar.config.PrefKeys
 import m.a.nobahar.domain.model.HomeCommunication
 import m.a.nobahar.domain.repository.HomeCommunicationRepository
 import m.a.nobahar.domain.repository.SplashRepository
 import m.a.nobahar.domain.storage.LocalStorage
 import m.a.nobahar.domain.storage.optional
+import m.a.nobahar.ui.logInfo
 
 class SplashRepositoryImp(
     private val splashApi: SplashApi,
     private val localStorage: LocalStorage,
     private val homeCommunicationRepository: HomeCommunicationRepository,
-    @ApplicationContext private val context: Context,
+    private val getAppInfo: GetAppInfo
 ) : SplashRepository {
 
     override suspend fun getSplash() {
         val firebaseToken = localStorage.optional<String>(PrefKeys.FirebaseToken)
         val deviceId = localStorage.optional<Long>(PrefKeys.DeviceId)
+        logInfo("Splash", "${deviceId.getValue()} ${firebaseToken.getValue()}")
         val splashData = splashApi.getSplash(
             firebaseToken.getValue(),
-            getAppVersion(),
+            getAppInfo.version,
             deviceId.getValue()
         )
         splashData.deviceId?.let {
@@ -48,11 +48,4 @@ class SplashRepositoryImp(
             }
         }
     }
-
-    private fun getAppVersion(): Long = PackageInfoCompat.getLongVersionCode(
-        context.packageManager.getPackageInfo(
-            context.packageName,
-            0
-        )
-    )
 }

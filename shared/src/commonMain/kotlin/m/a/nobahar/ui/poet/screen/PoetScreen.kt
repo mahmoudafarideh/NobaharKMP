@@ -18,22 +18,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.valentinilk.shimmer.shimmer
-import m.a.compilot.navigation.LocalNavController
-import m.a.compilot.navigation.comPilotNavController
 import m.a.nobahar.domain.model.Failed
 import m.a.nobahar.domain.model.LoadableData
 import m.a.nobahar.domain.model.Loaded
 import m.a.nobahar.domain.model.Loading
 import m.a.nobahar.domain.model.NotLoaded
+import m.a.nobahar.ui.LocalNavController
 import m.a.nobahar.ui.book.navigation.BookRoute
-import m.a.nobahar.ui.book.navigation.routes.navigator
 import m.a.nobahar.ui.poet.components.PoetBioLoading
 import m.a.nobahar.ui.poet.components.PoetBooksColumn
 import m.a.nobahar.ui.poet.components.PoetScreenTabs
 import m.a.nobahar.ui.poet.model.PoetScreenTabsUiModel
 import m.a.nobahar.ui.poet.model.PoetScreenUiModel
 import m.a.nobahar.ui.search.navigation.SearchRoute
-import m.a.nobahar.ui.search.navigation.routes.navigator
 import m.a.nobahar.ui.shared.components.FetchingDataFailed
 import m.a.nobahar.ui.shared.components.PoetAppBar
 import m.a.nobahar.ui.shared.model.PoetUiModel
@@ -55,16 +52,21 @@ fun PoetScreen(
 ) {
     val state = rememberLazyListState()
     val windowSize = LocalWindowSize.current
-    val navigation = LocalNavController.comPilotNavController
+    val navigation = LocalNavController.current
     Scaffold(
         topBar = {
             PoetAppBar(
                 poetUiModel = poetUiModel,
-                onBackClick = { navigation.safePopBackStack() },
+                onBackClick = { navigation.popBackStack() },
                 modifier = Modifier.scrollShadow(state),
                 onSearchClick = {
-                    navigation.safeNavigate().navigate(
-                        SearchRoute(poetUiModel.toPoet(), null).navigator
+                    navigation.navigate(
+                        SearchRoute(
+                            poetUiModel.id,
+                            poetUiModel.name,
+                            poetUiModel.nickname,
+                            poetUiModel.profile
+                        )
                     )
                 },
                 showRandomIcon = true,
@@ -106,10 +108,10 @@ fun PoetScreen(
                                 .verticalScroll(rememberScrollState())
                                 .padding(
                                     horizontal =
-                                        when (windowSize.widthSizeClass) {
-                                            WindowWidthSizeClass.Expanded -> 148.dp
-                                            else -> 0.dp
-                                        }
+                                    when (windowSize.widthSizeClass) {
+                                        WindowWidthSizeClass.Expanded -> 148.dp
+                                        else -> 0.dp
+                                    }
                                 ),
                             lineHeight = 32.sp,
                             textAlign = TextAlign.Justify
@@ -118,12 +120,15 @@ fun PoetScreen(
                         PoetBooksColumn(
                             poetInfo,
                             {
-                                navigation.safeNavigate().navigate(
+                                navigation.navigate(
                                     BookRoute(
-                                        poetInfo = poetUiModel.toPoet(),
+                                        id = poetUiModel.id,
+                                        name = poetUiModel.name,
+                                        nickName = poetUiModel.nickname,
+                                        profile = poetUiModel.profile,
                                         bookId = it.id,
                                         bookName = it.label,
-                                    ).navigator
+                                    )
                                 )
                             },
                             state,

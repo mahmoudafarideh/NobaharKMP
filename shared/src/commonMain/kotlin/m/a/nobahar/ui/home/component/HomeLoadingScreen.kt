@@ -1,6 +1,5 @@
 package m.a.nobahar.ui.home.component
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -19,17 +18,19 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.valentinilk.shimmer.shimmer
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import m.a.nobahar.R
 import m.a.nobahar.ui.home.model.CenturyUiModel
 import m.a.nobahar.ui.shared.model.PoetUiModel
 import m.a.nobahar.ui.shared.ui.LocalWindowSize
+import m.a.nobahar.ui.shared.ui.NobaharPreview
 import m.a.nobahar.ui.theme.PoemThemePreview
+import nobahar.shared.generated.resources.Res
+import nobahar.shared.generated.resources.categorize_by_century_title
+import nobahar.shared.generated.resources.popular_poets_title
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun HomeLoadingScreen(
@@ -132,8 +133,7 @@ private fun PoetsGrid(
     }
 }
 
-@Preview
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@NobaharPreview
 @Composable
 private fun HomeLoadingScreenPreview() {
     PoemThemePreview {

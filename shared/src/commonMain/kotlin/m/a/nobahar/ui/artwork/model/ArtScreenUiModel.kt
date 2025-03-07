@@ -4,7 +4,17 @@ import androidx.compose.ui.graphics.Color
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
-import m.a.nobahar.R
+import nobahar.shared.generated.resources.Res
+import nobahar.shared.generated.resources.bg_poem_1
+import nobahar.shared.generated.resources.bg_poem_10
+import nobahar.shared.generated.resources.bg_poem_2
+import nobahar.shared.generated.resources.bg_poem_3
+import nobahar.shared.generated.resources.bg_poem_4
+import nobahar.shared.generated.resources.bg_poem_5
+import nobahar.shared.generated.resources.bg_poem_6
+import nobahar.shared.generated.resources.bg_poem_7
+import nobahar.shared.generated.resources.bg_poem_8
+import nobahar.shared.generated.resources.bg_poem_9
 
 data class ArtScreenUiModel(
     val tabs: ImmutableList<ArtTabUiModel>,
@@ -29,16 +39,16 @@ data class ArtScreenUiModel(
                 ArtFontUiModel(item, index == 0)
             }.toImmutableList(),
             backgrounds = persistentListOf(
-                ArtBackgroundUiModel(R.drawable.bg_poem_1, true),
-                ArtBackgroundUiModel(R.drawable.bg_poem_2, false),
-                ArtBackgroundUiModel(R.drawable.bg_poem_3, false),
-                ArtBackgroundUiModel(R.drawable.bg_poem_4, false),
-                ArtBackgroundUiModel(R.drawable.bg_poem_5, false),
-                ArtBackgroundUiModel(R.drawable.bg_poem_6, false),
-                ArtBackgroundUiModel(R.drawable.bg_poem_7, false),
-                ArtBackgroundUiModel(R.drawable.bg_poem_8, false),
-                ArtBackgroundUiModel(R.drawable.bg_poem_9, false),
-                ArtBackgroundUiModel(R.drawable.bg_poem_10, false),
+                ArtBackgroundUiModel(Res.drawable.bg_poem_1, true),
+                ArtBackgroundUiModel(Res.drawable.bg_poem_2, false),
+                ArtBackgroundUiModel(Res.drawable.bg_poem_3, false),
+                ArtBackgroundUiModel(Res.drawable.bg_poem_4, false),
+                ArtBackgroundUiModel(Res.drawable.bg_poem_5, false),
+                ArtBackgroundUiModel(Res.drawable.bg_poem_6, false),
+                ArtBackgroundUiModel(Res.drawable.bg_poem_7, false),
+                ArtBackgroundUiModel(Res.drawable.bg_poem_8, false),
+                ArtBackgroundUiModel(Res.drawable.bg_poem_9, false),
+                ArtBackgroundUiModel(Res.drawable.bg_poem_10, false),
             ),
             colors = persistentListOf(
                 ArtColorUiModel(Color.White, true),

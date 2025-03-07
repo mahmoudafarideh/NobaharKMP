@@ -22,13 +22,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.valentinilk.shimmer.shimmer
-import m.a.nobahar.R
 import m.a.nobahar.ui.shared.ui.LocalWindowSize
 import m.a.nobahar.ui.shared.ui.NobaharPreview
 import m.a.nobahar.ui.theme.PoemThemePreview
+import nobahar.shared.generated.resources.Res
+import nobahar.shared.generated.resources.circle
+import org.jetbrains.compose.resources.painterResource
 
 
 @Composable
@@ -66,7 +67,7 @@ internal fun SearchPoemShimmer(modifier: Modifier) {
     ) {
         Box(modifier = Modifier.width(48.dp)) {
             Image(
-                painter = painterResource(R.drawable.circle),
+                painter = painterResource(Res.drawable.circle),
                 modifier = Modifier.aspectRatio(.8f),
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds,

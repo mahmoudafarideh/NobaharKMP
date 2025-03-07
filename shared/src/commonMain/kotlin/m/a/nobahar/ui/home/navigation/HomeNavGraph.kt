@@ -3,25 +3,22 @@ package m.a.nobahar.ui.home.navigation
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
-import m.a.compilot.navigation.LocalNavController
-import m.a.compilot.navigation.comPilotNavController
+import androidx.navigation.compose.composable
 import m.a.nobahar.analytics.AppMetricaAgent
 import m.a.nobahar.analytics.OmenScreenEvent
-import m.a.nobahar.ui.home.navigation.routes.screen
+import m.a.nobahar.ui.LocalNavController
 import m.a.nobahar.ui.home.screen.HomeScreen
 import m.a.nobahar.ui.home.screen.HomeViewModel
 import m.a.nobahar.ui.omen.navigation.OmenRoute
-import m.a.nobahar.ui.omen.navigation.routes.navigator
 import m.a.nobahar.ui.poet.navigation.PoetRoute
-import m.a.nobahar.ui.poet.navigation.routes.navigator
+import org.koin.compose.viewmodel.koinViewModel
 
 fun NavGraphBuilder.homeGraph() {
-    HomeRoute.screen(this) {
-        val viewModel: HomeViewModel = hiltViewModel()
+    composable<HomeRoute> {
+        val viewModel: HomeViewModel = koinViewModel()
         val state by viewModel.state.collectAsState()
-        val navigation = LocalNavController.comPilotNavController
+        val navigation = LocalNavController.current
         HomeScreen(
             centuries = state,
             modifier = Modifier,
@@ -33,12 +30,18 @@ fun NavGraphBuilder.homeGraph() {
             },
             onPoetClick = {
                 navigation
-                    .safeNavigate()
-                    .navigate(PoetRoute(it.toPoet()).navigator)
+                    .navigate(
+                        PoetRoute(
+                            id = it.id,
+                            name = it.name,
+                            nickName = it.nickname,
+                            profile = it.profile,
+                        )
+                    )
             },
             onOmenClick = {
                 AppMetricaAgent.log(OmenScreenEvent)
-                navigation.safeNavigate().navigate(OmenRoute.navigator)
+                navigation.navigate(OmenRoute)
             }
         )
     }

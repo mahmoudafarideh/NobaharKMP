@@ -1,6 +1,5 @@
 package m.a.nobahar.ui.poem.screen
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,20 +20,19 @@ import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import m.a.compilot.navigation.ComPilotNavController
-import m.a.compilot.navigation.LocalNavController
-import m.a.compilot.navigation.comPilotNavController
 import m.a.nobahar.domain.model.Failed
 import m.a.nobahar.domain.model.LoadableData
 import m.a.nobahar.domain.model.Loaded
 import m.a.nobahar.domain.model.Loading
 import m.a.nobahar.domain.model.NotLoaded
+import m.a.nobahar.ui.BackHandler
+import m.a.nobahar.ui.LocalNavController
 import m.a.nobahar.ui.LocalSnackBarHostState
 import m.a.nobahar.ui.artwork.navigation.ArtworkRoute
-import m.a.nobahar.ui.artwork.navigation.routes.navigator
 import m.a.nobahar.ui.book.model.BookItemUiModel
 import m.a.nobahar.ui.book.model.PoemItemUiModel
 import m.a.nobahar.ui.poem.components.PoemAppBar
@@ -66,13 +64,13 @@ fun PoemScreen(
     val state = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = LocalSnackBarHostState.current
-    val navigation = LocalNavController.comPilotNavController
+    val navigation = LocalNavController.current
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
     Scaffold(
         topBar = {
             PoemAppBar(
                 poemUiModel = poemUiModel,
-                onBackClick = { navigation.safePopBackStack() },
+                onBackClick = { navigation.popBackStack() },
                 modifier = Modifier.scrollShadow(state),
                 onArtworkClick = {
                     artworkIconClicked(
@@ -195,7 +193,7 @@ private fun copyVerses(
 
 private fun artworkIconClicked(
     poemUiModel: LoadableData<PoemUiModel>,
-    navigation: ComPilotNavController,
+    navigation: NavController,
     coroutineScope: CoroutineScope,
     snackbarHostState: SnackbarHostState,
     onVerseArtworkClick: () -> Unit
@@ -205,11 +203,11 @@ private fun artworkIconClicked(
             poem.selectedVerse?.let {
                 navigation.navigate(
                     ArtworkRoute(
-                        it.first.toPoemVerse(),
-                        it.second.toPoemVerse(),
+                        it.first.text,
+                        it.second.text,
                         poem.poetUiModel.nickname,
                         poem.bookUiModel.label
-                    ).navigator
+                    )
                 )
                 onVerseArtworkClick()
             }

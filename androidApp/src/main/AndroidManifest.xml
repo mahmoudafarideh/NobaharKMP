@@ -4,9 +4,10 @@
     <application
         android:allowBackup="false"
         android:supportsRtl="true"
+        android:name=".PoemApp"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="m.a.nobahar.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

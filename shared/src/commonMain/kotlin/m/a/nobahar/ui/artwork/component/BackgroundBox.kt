@@ -1,6 +1,5 @@
 package m.a.nobahar.ui.artwork.component
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,16 +11,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import m.a.nobahar.R
 import m.a.nobahar.ui.shared.ui.NobaharPreview
 import m.a.nobahar.ui.theme.PoemThemePreview
+import nobahar.shared.generated.resources.Res
+import nobahar.shared.generated.resources.bg_poem_1
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun BackgroundBox(
-    @DrawableRes
-    image: Int,
+    image: DrawableResource,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -46,10 +46,10 @@ private fun BackgroundBoxPreview() {
             horizontalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             BackgroundBox(
-                image = R.drawable.bg_poem_1,
+                image = Res.drawable.bg_poem_1,
             )
             BackgroundBox(
-                image = R.drawable.bg_poem_1,
+                image = Res.drawable.bg_poem_1,
             )
         }
     }

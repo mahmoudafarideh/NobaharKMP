@@ -25,11 +25,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import m.a.nobahar.R
 import m.a.nobahar.ui.artwork.model.ArtSavingState
 import m.a.nobahar.ui.artwork.model.ArtScreenUiModel
+import nobahar.shared.generated.resources.Res
+import nobahar.shared.generated.resources.artwork_saved_message
+import nobahar.shared.generated.resources.artwork_saving_failed_message
+import nobahar.shared.generated.resources.artwork_saving_message
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun ColumnScope.SavingStateMessages(

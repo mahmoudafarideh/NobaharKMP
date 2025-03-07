@@ -9,11 +9,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import m.a.nobahar.R
-
+import nobahar.shared.generated.resources.Res
+import nobahar.shared.generated.resources.matnnegar
+import nobahar.shared.generated.resources.powered_by_matnnegar
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun MatnnegarRow(
@@ -24,7 +25,7 @@ internal fun MatnnegarRow(
         modifier = modifier
     ) {
         Image(
-            painter = painterResource(R.drawable.matnnegar),
+            painter = painterResource(Res.drawable.matnnegar),
             modifier = Modifier.size(32.dp),
             contentDescription = null
         )

@@ -8,7 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import coil3.compose.LocalPlatformContext
 import coil3.compose.rememberAsyncImagePainter
 import coil3.request.ImageRequest
 
@@ -21,7 +21,7 @@ fun UrlImage(
 ) {
     Box {
         var isImageLoaded by remember { mutableStateOf(false) }
-        val ctx = LocalContext.current
+        val ctx = LocalPlatformContext.current
         val painter = rememberAsyncImagePainter(
             model = ImageRequest.Builder(ctx)
                 .data(url)

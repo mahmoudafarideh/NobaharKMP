@@ -93,19 +93,19 @@ internal fun PoemVerses(
                         .align(Alignment.Start)
                         .padding(top = 12.dp)
                 )
-                it.second?.let {
+                it.second?.let { verseInfo ->
                     Spacer(modifier = Modifier.size(16.dp))
                     PoemVerse(
-                        verse = it,
+                        verse = verseInfo,
                         highlightColor = highlightColor,
                         modifier = Modifier
                             .align(Alignment.End)
                     )
                 }
-                it.third?.let {
+                it.third?.let { verseInfo ->
                     Spacer(modifier = Modifier.size(16.dp))
                     PoemVerse(
-                        verse = it,
+                        verse = verseInfo,
                         highlightColor = highlightColor,
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)

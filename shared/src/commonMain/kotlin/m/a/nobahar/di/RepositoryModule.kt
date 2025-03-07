@@ -1,13 +1,8 @@
 package m.a.nobahar.di
 
-import dagger.Binds
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import m.a.nobahar.api.repository.BookRepositoryImp
 import m.a.nobahar.api.repository.CenturyPoetsRepositoryImp
 import m.a.nobahar.api.repository.HomeCommunicationRepositoryImp
-import m.a.nobahar.api.repository.MediaPlayerRepositoryImp
 import m.a.nobahar.api.repository.PoemRepositoryImp
 import m.a.nobahar.api.repository.PoemSearchRepositoryImp
 import m.a.nobahar.api.repository.PoetRepositoryImp
@@ -16,45 +11,53 @@ import m.a.nobahar.api.repository.SplashRepositoryImp
 import m.a.nobahar.domain.repository.BookRepository
 import m.a.nobahar.domain.repository.CenturyPoetsRepository
 import m.a.nobahar.domain.repository.HomeCommunicationRepository
-import m.a.nobahar.domain.repository.MediaPlayerRepository
 import m.a.nobahar.domain.repository.PoemRepository
 import m.a.nobahar.domain.repository.PoetRepository
 import m.a.nobahar.domain.repository.RandomRepository
 import m.a.nobahar.domain.repository.SearchRepository
 import m.a.nobahar.domain.repository.SplashRepository
+import org.koin.dsl.module
 
+val repositoryModule = module {
 
-@Module
-@InstallIn(SingletonComponent::class)
-interface RepositoryModule {
+    single<CenturyPoetsRepository> {
+        CenturyPoetsRepositoryImp(get())
+    }
 
-    @Binds
-    fun providesCenturyPoetsRepository(
-        centuryPoetsRepository: CenturyPoetsRepositoryImp
-    ): CenturyPoetsRepository
+    single<PoetRepository> {
+        PoetRepositoryImp(get())
+    }
 
-    @Binds
-    fun providesPoetRepository(repo: PoetRepositoryImp): PoetRepository
+    single<CenturyPoetsRepository> {
+        CenturyPoetsRepositoryImp(get())
+    }
 
-    @Binds
-    fun providesMediaPlayerRepository(repo: MediaPlayerRepositoryImp): MediaPlayerRepository
+    single<PoetRepository> {
+        PoetRepositoryImp(get())
+    }
 
-    @Binds
-    fun providesSearchRepository(repo: PoemSearchRepositoryImp): SearchRepository
+    single<SearchRepository> {
+        PoemSearchRepositoryImp(get())
+    }
 
-    @Binds
-    fun providesRandomRepository(repo: RandomRepositoryImp): RandomRepository
+    single<RandomRepository> {
+        RandomRepositoryImp(get(), get())
+    }
 
-    @Binds
-    fun providesPoemRepository(repo: PoemRepositoryImp): PoemRepository
+    single<PoemRepository> {
+        PoemRepositoryImp(get())
+    }
 
-    @Binds
-    fun providesBookRepository(repo: BookRepositoryImp): BookRepository
+    single<BookRepository> {
+        BookRepositoryImp(get())
+    }
 
-    @Binds
-    fun providesSplashRepository(repo: SplashRepositoryImp): SplashRepository
+    single<SplashRepository> {
+        SplashRepositoryImp(get(), get(), get(), get())
+    }
 
-    @Binds
-    fun providesHomeCommunicationRepository(repo: HomeCommunicationRepositoryImp): HomeCommunicationRepository
+    single<HomeCommunicationRepository> {
+        HomeCommunicationRepositoryImp()
+    }
 
 }

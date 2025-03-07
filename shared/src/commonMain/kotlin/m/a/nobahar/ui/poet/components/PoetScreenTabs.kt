@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import m.a.nobahar.R
 import m.a.nobahar.ui.poet.model.PoetScreenTabsUiModel
 import m.a.nobahar.ui.shared.ui.LocalWindowSize
+import nobahar.shared.generated.resources.Res
+import nobahar.shared.generated.resources.poet_bio_label
+import nobahar.shared.generated.resources.poet_books_label
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun PoetScreenTabs(

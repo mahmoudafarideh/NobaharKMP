@@ -12,13 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import m.a.nobahar.R
 import m.a.nobahar.ui.shared.model.PoetUiModel
+import m.a.nobahar.ui.shared.ui.NobaharPreview
 import m.a.nobahar.ui.theme.PoemThemePreview
+import nobahar.shared.generated.resources.Res
+import nobahar.shared.generated.resources.circle
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun PoetLoadingBox(
@@ -30,7 +31,7 @@ fun PoetLoadingBox(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(R.drawable.circle),
+            painter = painterResource(Res.drawable.circle),
             modifier = Modifier.aspectRatio(.8f),
             contentDescription = poetUiModel.name,
             contentScale = ContentScale.FillBounds,
@@ -46,7 +47,7 @@ fun PoetLoadingBox(
     }
 }
 
-@Preview
+@NobaharPreview
 @Composable
 private fun PoetLoadingBoxPreview() {
     PoemThemePreview {

@@ -20,7 +20,6 @@ import nobahar.shared.generated.resources.Res
 import nobahar.shared.generated.resources.omen_image
 import org.jetbrains.compose.resources.painterResource
 
-
 @Composable
 internal fun OmenImage(
     state: LoadableData<OmenUiModel>,

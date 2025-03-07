@@ -26,7 +26,7 @@ sealed class PoemVerseUiModel {
 
         override fun toggleHighlight(index: Int, shouldHighlight: Boolean): PoemVerseUiModel {
             return copy(
-                first.copy(isHighlighted = shouldHighlight && index >= previousVerses)
+                first = first.copy(isHighlighted = shouldHighlight && index >= previousVerses)
             )
         }
 
@@ -46,8 +46,8 @@ sealed class PoemVerseUiModel {
 
         override fun toggleHighlight(index: Int, shouldHighlight: Boolean): PoemVerseUiModel {
             return copy(
-                first.copy(isHighlighted = shouldHighlight && index >= previousVerses),
-                second.copy(isHighlighted = shouldHighlight && index >= previousVerses + 1)
+                first = first.copy(isHighlighted = shouldHighlight && index >= previousVerses),
+                second = second.copy(isHighlighted = shouldHighlight && index >= previousVerses + 1)
             )
         }
 
@@ -68,9 +68,9 @@ sealed class PoemVerseUiModel {
 
         override fun toggleHighlight(index: Int, shouldHighlight: Boolean): PoemVerseUiModel {
             return copy(
-                first.copy(isHighlighted = shouldHighlight && index >= previousVerses),
-                second.copy(isHighlighted = shouldHighlight && index >= previousVerses + 1),
-                third.copy(isHighlighted = shouldHighlight && index >= previousVerses + 2),
+                first = first.copy(isHighlighted = shouldHighlight && index >= previousVerses),
+                second = second.copy(isHighlighted = shouldHighlight && index >= previousVerses + 1),
+                third = third.copy(isHighlighted = shouldHighlight && index >= previousVerses + 2),
             )
         }
 

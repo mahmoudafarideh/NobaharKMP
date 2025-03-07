@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
@@ -11,8 +10,8 @@ plugins {
 }
 
 kotlin {
+    
     androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
@@ -27,7 +26,6 @@ kotlin {
                 outputFileName = "composeApp.js"
                 devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
                     static = (static ?: mutableListOf()).apply {
-                        // Serve sources to debug inside browser
                         add(rootDirPath)
                         add(projectDirPath)
                     }
@@ -39,20 +37,23 @@ kotlin {
     }
 
     sourceSets {
+
         jsMain.dependencies {
             implementation(libs.kstore.storage)
         }
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.kstore.file)
-
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.koin.android)
             implementation(libs.koin.android.compose)
-
             implementation(libs.ktor.client.android)
+            implementation(libs.androidx.media3.exoplayer)
+            implementation(libs.firebase.messaging.ktx)
         }
+
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -67,26 +68,25 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kstore)
-
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.no.arg)
             implementation(libs.material3.window.size.class1)
-
             implementation(libs.kotlinx.collections.immutable)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.vm)
-
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.encoding)
             implementation(libs.ktor.client.serialization)
             implementation(libs.ktor.client.serialization.json)
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.client.auth)
-
             implementation(libs.ktor.client.auth)
-
+            implementation(libs.compose.shimmer)
+            implementation(libs.coil.compose)
         }
+
     }
 }
 
@@ -98,7 +98,10 @@ android {
         minSdk = 23
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }

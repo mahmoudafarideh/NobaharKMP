@@ -25,6 +25,11 @@ import m.a.nobahar.domain.model.NotLoaded
 import m.a.nobahar.ui.shared.ui.NobaharPreview
 import m.a.nobahar.ui.theme.PoemThemePreview
 import nobahar.shared.generated.resources.Res
+import nobahar.shared.generated.resources.error_occured_label
+import nobahar.shared.generated.resources.logo
+import nobahar.shared.generated.resources.nobahar
+import nobahar.shared.generated.resources.nobahar_slogan
+import nobahar.shared.generated.resources.retry_button_label
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 

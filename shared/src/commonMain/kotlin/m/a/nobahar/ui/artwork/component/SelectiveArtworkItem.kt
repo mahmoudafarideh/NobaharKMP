@@ -12,9 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import m.a.nobahar.R
 import m.a.nobahar.ui.shared.ui.NobaharPreview
 import m.a.nobahar.ui.theme.PoemThemePreview
+import nobahar.shared.generated.resources.Res
+import nobahar.shared.generated.resources.bg_poem_1
 
 @Composable
 fun SelectiveArtworkItem(
@@ -57,13 +58,13 @@ private fun SelectiveArtworkItemPreview() {
                 selected = false,
                 onClick = {}
             ) {
-                BackgroundBox(R.drawable.bg_poem_1)
+                BackgroundBox(Res.drawable.bg_poem_1)
             }
             SelectiveArtworkItem(
                 selected = true,
                 onClick = {}
             ) {
-                BackgroundBox(R.drawable.bg_poem_1)
+                BackgroundBox(Res.drawable.bg_poem_1)
             }
         }
     }

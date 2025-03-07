@@ -18,10 +18,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.valentinilk.shimmer.shimmer
-import m.a.nobahar.R
+import nobahar.shared.generated.resources.Res
+import nobahar.shared.generated.resources.circle
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 internal fun LoadingPoemBar(
@@ -32,7 +33,7 @@ internal fun LoadingPoemBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(R.drawable.circle),
+            painter = painterResource(Res.drawable.circle),
             modifier = modifier.aspectRatio(.8f),
             contentDescription = null,
             contentScale = ContentScale.FillBounds,

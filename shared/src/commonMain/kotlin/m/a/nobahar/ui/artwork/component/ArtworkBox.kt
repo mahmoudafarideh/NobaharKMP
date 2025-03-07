@@ -12,18 +12,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
-import dev.shreyaspatil.capturable.capturable
-import dev.shreyaspatil.capturable.controller.CaptureController
-import m.a.nobahar.R
 import m.a.nobahar.ui.artwork.model.ArtScreenUiModel
+import m.a.nobahar.ui.capture.CaptureController
+import m.a.nobahar.ui.capture.capturable
+import nobahar.shared.generated.resources.Res
+import nobahar.shared.generated.resources.iran_nastaliq
+import nobahar.shared.generated.resources.ordibehesht
+import nobahar.shared.generated.resources.vazir_regular
+import org.jetbrains.compose.resources.Font
+import org.jetbrains.compose.resources.painterResource
 
-val ordibeheshtFont = FontFamily(Font(R.font.ordibehesht))
-val nastaliqFont = FontFamily(Font(R.font.iran_nastaliq))
-val vazirFont = FontFamily(Font(R.font.vazir_regular))
+val ordibeheshtFont @Composable get() = FontFamily(Font(Res.font.ordibehesht))
+val nastaliqFont @Composable get() = FontFamily(Font(Res.font.iran_nastaliq))
+val vazirFont @Composable get() = FontFamily(Font(Res.font.vazir_regular))
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

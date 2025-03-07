@@ -1,3 +1,6 @@
 package m.a.nobahar.ui.shared.ui
 
-annotation class NobaharPreview()
+import org.jetbrains.compose.ui.tooling.preview.Preview
+
+@Preview
+annotation class NobaharPreview

@@ -6,9 +6,7 @@ import m.a.nobahar.domain.model.PoemSearchFilter
 import m.a.nobahar.domain.model.PoemSearchResult
 import m.a.nobahar.domain.repository.SearchRepository
 
-class PoemSearchRepositoryImp(
-    private val searchApi: SearchApi
-) : SearchRepository {
+class PoemSearchRepositoryImp(private val searchApi: SearchApi) : SearchRepository {
     override suspend fun searchPoem(filter: PoemSearchFilter): List<PoemSearchResult> {
         return searchApi.searchPoem(
             page = filter.page,

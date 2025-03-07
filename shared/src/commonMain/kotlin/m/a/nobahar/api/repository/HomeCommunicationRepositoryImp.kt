@@ -3,7 +3,7 @@ package m.a.nobahar.api.repository
 import m.a.nobahar.domain.model.HomeCommunication
 import m.a.nobahar.domain.repository.HomeCommunicationRepository
 
-class HomeCommunicationRepositoryImp() : HomeCommunicationRepository {
+class HomeCommunicationRepositoryImp : HomeCommunicationRepository {
 
     private var communication: HomeCommunication? = null
 

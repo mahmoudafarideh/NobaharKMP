@@ -6,8 +6,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import m.a.nobahar.ui.home.model.CenturyUiModel
+import m.a.nobahar.ui.shared.ui.NobaharPreview
 import m.a.nobahar.ui.theme.PoemThemePreview
 
 @Composable
@@ -30,7 +30,7 @@ fun CenturyChip(
     )
 }
 
-@Preview
+@NobaharPreview
 @Composable
 private fun CenturyChipPreview() {
     PoemThemePreview {
