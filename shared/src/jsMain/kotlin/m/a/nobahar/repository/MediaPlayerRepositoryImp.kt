@@ -11,18 +11,24 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import m.a.nobahar.api.helper.AudioSyncHelper
 import m.a.nobahar.domain.model.MediaPlayerState
 import m.a.nobahar.domain.model.PoemAudioInfo
 import m.a.nobahar.domain.repository.MediaPlayerRepository
+import m.a.nobahar.ui.logInfo
 import org.w3c.dom.HTMLAudioElement
 
-class MediaPlayerRepositoryImp : MediaPlayerRepository {
+class MediaPlayerRepositoryImp(
+    private val audioSyncHelper: AudioSyncHelper
+) : MediaPlayerRepository {
     private var audioElement: HTMLAudioElement? = null
     private var poemAudioInfo: PoemAudioInfo? = null
     override var state: MutableStateFlow<MediaPlayerState?> = MutableStateFlow(null)
 
     private val job = SupervisorJob()
     private val coroutineScope = CoroutineScope(job + Dispatchers.Default)
+    private var audioSync: List<Pair<Int, Int>> = emptyList()
 
     init {
         observePlayerProgressChange()
@@ -31,26 +37,29 @@ class MediaPlayerRepositoryImp : MediaPlayerRepository {
     private fun setupAudioElement() {
         if (audioElement == null) {
             audioElement = document.createElement("audio") as HTMLAudioElement
+            audioElement?.onwaiting = {
+                poemAudioInfo?.let { audioInfo ->
+                    if (state.value?.poemAudioInfo == audioInfo && state.value is MediaPlayerState.Playing) {
+                        return@let
+                    }
+                    updateState(MediaPlayerState.Loading(audioInfo))
+                }
+            }
             audioElement?.onerror = { _, _, _, _, _ ->
                 updateState(MediaPlayerState.LoadingFailed)
             }
-            audioElement?.onplay = {
-                poemAudioInfo?.let {
-                    updateState(MediaPlayerState.Playing(it, getPlayingTime()))
+            audioElement?.onpause = {
+                poemAudioInfo?.let { audioInfo ->
+                    updateState(MediaPlayerState.Paused(audioInfo))
                 }
             }
-            audioElement?.onpause = {
-                poemAudioInfo?.let {
-                    updateState(MediaPlayerState.Paused(it))
+            audioElement?.onplay = {
+                poemAudioInfo?.let { audioInfo ->
+                    updateState(MediaPlayerState.Playing(audioInfo, getPlayingVerseIndex()))
                 }
             }
             audioElement?.onended = {
                 updateState(MediaPlayerState.Ended)
-            }
-            audioElement?.onwaiting = {
-                poemAudioInfo?.let {
-                    updateState(MediaPlayerState.Loading(it))
-                }
             }
         }
     }
@@ -66,7 +75,8 @@ class MediaPlayerRepositoryImp : MediaPlayerRepository {
                 flow {
                     while (it is MediaPlayerState.Playing) {
                         poemAudioInfo?.let { recitation ->
-                            emit(MediaPlayerState.Playing(recitation, getPlayingTime()))
+                            logInfo("SXO", "$recitation ${getPlayingVerseIndex()}")
+                            emit(MediaPlayerState.Playing(recitation, getPlayingVerseIndex()))
                         }
                         delay(1_000)
                     }
@@ -77,9 +87,11 @@ class MediaPlayerRepositoryImp : MediaPlayerRepository {
         }
     }
 
-    private fun getPlayingTime(): Int? {
-        return audioElement?.currentTime?.toInt()
-    }
+
+    private fun getPlayingVerseIndex(): Int? = audioSync.lastOrNull { (_, time) ->
+        time <= audioElement!!.currentTime.toInt() + 1_200
+    }?.first
+
 
     override fun play(poemAudioInfo: PoemAudioInfo) {
         if (this.poemAudioInfo == poemAudioInfo && audioElement?.paused == true) {
@@ -90,7 +102,29 @@ class MediaPlayerRepositoryImp : MediaPlayerRepository {
         this.poemAudioInfo = poemAudioInfo
         setupAudioElement()
         audioElement?.src = poemAudioInfo.recitation.mp3Url
-        audioElement?.play()
+
+        coroutineScope.launch {
+            poemAudioInfo.recitation.syncUrl?.let {
+                state.update {
+                    MediaPlayerState.Loading(poemAudioInfo)
+                }
+                runCatching {
+                    audioSyncHelper.getAudioSync(it)
+                }.onFailure {
+                    this@MediaPlayerRepositoryImp.poemAudioInfo = null
+                    state.update { MediaPlayerState.LoadingFailed }
+                }.onSuccess {
+                    audioSync = it
+                    withContext(Dispatchers.Main) {
+                        audioElement?.play()
+                    }
+                }
+            } ?: run {
+                withContext(Dispatchers.Main) {
+                    audioElement?.play()
+                }
+            }
+        }
     }
 
     override fun pause() {
@@ -100,6 +134,7 @@ class MediaPlayerRepositoryImp : MediaPlayerRepository {
     override fun release() {
         poemAudioInfo = null
         audioElement?.pause()
+        audioSync = emptyList()
         audioElement?.src = ""
         audioElement = null
         state.update { null }

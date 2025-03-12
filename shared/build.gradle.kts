@@ -40,6 +40,7 @@ kotlin {
 
         jsMain.dependencies {
             implementation(libs.kstore.storage)
+            implementation(libs.ktor.client.js)
         }
 
         androidMain.dependencies {
@@ -80,11 +81,18 @@ kotlin {
             implementation(libs.ktor.client.encoding)
             implementation(libs.ktor.client.serialization)
             implementation(libs.ktor.client.serialization.json)
+            implementation(libs.ktor.client.serialization.xml)
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.client.auth)
             implementation(libs.ktor.client.auth)
             implementation(libs.compose.shimmer)
+
+            implementation(libs.coil.compose.core)
             implementation(libs.coil.compose)
+            implementation(libs.coil.mp)
+            implementation(libs.coil.network.ktor)
+            implementation("io.github.pdvrieze.xmlutil:core:0.91.0-RC1")
+
         }
 
     }

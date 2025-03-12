@@ -20,7 +20,9 @@ class SplashViewModel(
     private fun getSplash() {
         executeLoadable(
             currentValue = state.value,
-            action = { splashRepository.getSplash() },
+            action = {
+                splashRepository.getSplash()
+            },
             data = {
                 updateState { it }
             }

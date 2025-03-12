@@ -5,7 +5,7 @@ android-minSdk = "24"
 android-targetSdk = "35"
 androidx-activityCompose = "1.10.0"
 androidx-lifecycle = "2.8.4"
-coilCompose = "3.0.0-alpha06"
+coilCompose = "3.1.0"
 compose-multiplatform = "1.7.3"
 composeShimmer = "1.3.2"
 kotlin-immutable = "0.3.8"
@@ -13,7 +13,6 @@ koin = "4.0.1"
 kotlin = "2.1.0"
 kotlinxSerializationXml = "0.2.0"
 ktorClientJava = "3.1.0"
-ktorClientJs = "2.3.0"
 material3WindowSizeClass = "1.7.3"
 multiplatformSettings = "1.3.0"
 multiplatformSettingsNoArg = "1.1.1"
@@ -29,6 +28,11 @@ firebaseMessagingKtx = "24.1.0"
 
 [libraries]
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+coil-compose-core = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coilCompose" }
+coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor2", version.ref = "coilCompose" }
+coil-mp = { module = "io.coil-kt.coil3:coil", version.ref = "coilCompose" }
+
+
 compose-shimmer = { module = "com.valentinilk.shimmer:compose-shimmer", version.ref = "composeShimmer" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-android-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
@@ -41,15 +45,18 @@ koin-compose-vm = { module = "io.insert-koin:koin-compose-viewmodel", version.re
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
-kotlinx-serialization-xml = { module = "org.jetbrains.kotlinx:kotlinx-serialization-xml", version.ref = "kotlinxSerializationXml" }
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorClientJava" }
 ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktorClientJava" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientJava" }
 ktor-client-encoding = { module = "io.ktor:ktor-client-encoding", version.ref = "ktorClientJava" }
+coil-network = { module = "io.coil-kt.coil3:coil-network", version.ref = "coilCompose" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientJava" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClientJava" }
 ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktorClientJava" }
+ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktorClientJava" }
 ktor-client-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorClientJava" }
+ktor-client-serialization-xml = { module = "io.ktor:ktor-serialization-kotlinx-xml", version.ref = "ktorClientJava" }
+
 material3-window-size-class1 = { module = "org.jetbrains.compose.material3:material3-window-size-class", version.ref = "material3WindowSizeClass" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
 multiplatform-settings-no-arg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettingsNoArg" }

@@ -7,6 +7,6 @@ import org.koin.dsl.module
 
 actual val mediaPlayerModule: Module = module {
     single<MediaPlayerRepository> {
-        MediaPlayerRepositoryImp()
+        MediaPlayerRepositoryImp(get())
     }
 }

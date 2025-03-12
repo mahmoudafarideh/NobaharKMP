@@ -11,7 +11,12 @@ actual fun Module.imageSaverModule(): KoinDefinition<ImageBitmapSaver> {
     return single<ImageBitmapSaver> {
         object : ImageBitmapSaver {
             override fun savePhoto(bitmap: ImageBitmap) {
-
+//                val paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true)
+//                val filePath = paths.first() as String + "/$fileName"
+//                val fileURL = NSURL.fileURLWithPath(filePath)
+//
+//                val imageData = UIImagePNGRepresentation(image)
+//                imageData?.writeToURL(fileURL, true)
             }
         }
     }
