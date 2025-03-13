@@ -3,21 +3,23 @@ package m.a.nobahar.ui.shared.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import coil3.annotation.ExperimentalCoilApi
-import coil3.compose.LocalPlatformContext
-import coil3.compose.rememberAsyncImagePainter
-import coil3.network.NetworkClient
-import coil3.network.NetworkFetcher
-import coil3.network.ktor2.KtorNetworkFetcherFactory
-import coil3.request.ImageRequest
-import m.a.nobahar.ui.logInfo
+import io.kamel.core.Resource
+import io.kamel.core.config.DefaultCacheSize
+import io.kamel.core.config.DefaultHttpCacheSize
+import io.kamel.core.config.KamelConfig
+import io.kamel.core.config.fileFetcher
+import io.kamel.core.config.fileUrlFetcher
+import io.kamel.core.config.httpUrlFetcher
+import io.kamel.core.config.stringMapper
+import io.kamel.core.config.uriMapper
+import io.kamel.core.config.urlMapper
+import io.kamel.image.asyncPainterResource
+import io.kamel.image.config.LocalKamelConfig
+import io.kamel.image.config.animatedImageDecoder
 
-@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun UrlImage(
     url: String,
@@ -25,31 +27,47 @@ fun UrlImage(
     contentDescription: String? = null,
     placeholder: (@Composable () -> Unit)? = null,
 ) {
-    Box {
-        var isImageLoaded by remember { mutableStateOf(false) }
-        val ctx = LocalPlatformContext.current
-        val painter = rememberAsyncImagePainter(
-            model = ImageRequest.Builder(ctx)
-                .data(url)
-                .fetcherFactory(
-                    KtorNetworkFetcherFactory()
-                )
-                .build(),
-            onSuccess = {
-                logInfo("SXO", "IMAGE LOADED")
-                isImageLoaded = true
-            },
-            onError = {
-                logInfo("SXO", it.result.throwable.message)
+    val kamelConfig = rememberKamelConfig()
+    CompositionLocalProvider(LocalKamelConfig provides kamelConfig) {
+        Box {
+            when (val resource = asyncPainterResource(data = url)) {
+                is Resource.Failure -> {
+                    placeholder?.invoke()
+                }
+
+                is Resource.Loading -> {
+                    placeholder?.invoke()
+                }
+
+                is Resource.Success -> {
+                    Image(
+                        painter = resource.value,
+                        modifier = modifier,
+                        contentDescription = contentDescription,
+                    )
+                }
             }
-        )
-        if (!isImageLoaded) {
-            placeholder?.invoke()
+
         }
-        Image(
-            painter = painter,
-            modifier = modifier,
-            contentDescription = contentDescription,
-        )
+    }
+
+}
+
+@Composable
+private fun rememberKamelConfig() = remember {
+    KamelConfig {
+        imageBitmapCacheSize = DefaultCacheSize
+        imageVectorCacheSize = DefaultCacheSize
+        svgCacheSize = DefaultCacheSize
+        animatedImageCacheSize = DefaultCacheSize
+        stringMapper()
+        urlMapper()
+        uriMapper()
+        fileFetcher()
+        fileUrlFetcher()
+        httpUrlFetcher {
+            httpCache(DefaultHttpCacheSize)
+        }
+        animatedImageDecoder()
     }
 }

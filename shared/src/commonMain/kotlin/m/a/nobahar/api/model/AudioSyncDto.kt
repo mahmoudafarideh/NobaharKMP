@@ -20,8 +20,14 @@ data class SyncAudioDto(
         @SerialName("OneSecondBugFix")
         val oneSecondBugFix: Long,
         @SerialName("SyncArray")
-        val syncArray: List<SyncInfo>,
-    )
+        val syncArray: SyncArray,
+    ) {
+        @Serializable
+        data class SyncArray(
+            @SerialName("SyncInfo")
+            val syncInfo: List<SyncInfo>
+        )
+    }
 
 
     @Serializable

@@ -16,7 +16,6 @@ import m.a.nobahar.api.helper.AudioSyncHelper
 import m.a.nobahar.domain.model.MediaPlayerState
 import m.a.nobahar.domain.model.PoemAudioInfo
 import m.a.nobahar.domain.repository.MediaPlayerRepository
-import m.a.nobahar.ui.logInfo
 import org.w3c.dom.HTMLAudioElement
 
 class MediaPlayerRepositoryImp(
@@ -75,7 +74,6 @@ class MediaPlayerRepositoryImp(
                 flow {
                     while (it is MediaPlayerState.Playing) {
                         poemAudioInfo?.let { recitation ->
-                            logInfo("SXO", "$recitation ${getPlayingVerseIndex()}")
                             emit(MediaPlayerState.Playing(recitation, getPlayingVerseIndex()))
                         }
                         delay(1_000)
@@ -89,7 +87,7 @@ class MediaPlayerRepositoryImp(
 
 
     private fun getPlayingVerseIndex(): Int? = audioSync.lastOrNull { (_, time) ->
-        time <= audioElement!!.currentTime.toInt() + 1_200
+        time <= audioElement!!.currentTime.toInt().times(1_000) + 1_200
     }?.first
 
 

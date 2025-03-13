@@ -12,7 +12,7 @@ import m.a.nobahar.api.helper.AudioSyncHelper
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
-val apiModules =  module {
+val apiModules = module {
 
     singleOf(::CenturyApi)
     singleOf(::PoetApi)

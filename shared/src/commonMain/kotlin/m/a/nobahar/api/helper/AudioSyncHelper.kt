@@ -17,11 +17,10 @@ class AudioSyncHelper(private val poemApi: PoemApi) {
 
     private fun parseVerseOrderToStartTime(xmlString: String): List<Pair<Int, Int>> {
         val verseList = mutableListOf<Pair<Int, Int>>()
-        val audioSync = parseXML(SyncAudioDto.serializer(), xmlString)
-        audioSync.audioList.poemAudio.syncArray.forEach {
+        val audioSync = parseXML(SyncAudioDto.AudioList.serializer(), xmlString)
+        audioSync.poemAudio.syncArray.syncInfo.forEach {
             verseList.add(it.verseOrder to it.audioMilliseconds)
         }
-
         return verseList.filter { it.first >= 0 }.sortedBy { it.first }
     }
 }

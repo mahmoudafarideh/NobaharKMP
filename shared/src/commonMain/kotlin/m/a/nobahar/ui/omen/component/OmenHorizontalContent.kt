@@ -23,8 +23,8 @@ import androidx.compose.ui.unit.dp
 import m.a.nobahar.domain.model.LoadableData
 import m.a.nobahar.ui.omen.model.OmenUiModel
 import nobahar.shared.generated.resources.Res
-import nobahar.shared.generated.resources.omen_footer
-import nobahar.shared.generated.resources.omen_header
+import nobahar.shared.generated.resources.omen_footer_land
+import nobahar.shared.generated.resources.omen_header_land
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -46,7 +46,7 @@ internal fun OmenHorizontalContent(
         horizontalArrangement = Arrangement.Center
     ) {
         Image(
-            painter = painterResource(Res.drawable.omen_header),
+            painter = painterResource(Res.drawable.omen_header_land),
             contentDescription = null,
             modifier = Modifier.fillMaxHeight()
         )
@@ -66,7 +66,7 @@ internal fun OmenHorizontalContent(
             }
         }
         Image(
-            painter = painterResource(Res.drawable.omen_footer),
+            painter = painterResource(Res.drawable.omen_footer_land),
             contentDescription = null,
             modifier = Modifier.fillMaxHeight()
         )

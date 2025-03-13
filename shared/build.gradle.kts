@@ -41,6 +41,10 @@ kotlin {
         jsMain.dependencies {
             implementation(libs.kstore.storage)
             implementation(libs.ktor.client.js)
+            implementation(libs.jackson.module.kotlin)
+
+            implementation("io.ktor:ktor-client-core:2.3.0")
+            implementation("io.ktor:ktor-client-js:2.3.0") // Ensure JS support if targeting Kotlin/JS
 
         }
 
@@ -92,6 +96,11 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.coil.mp)
             implementation(libs.coil.network.ktor)
+
+            implementation("media.kamel:kamel-image:1.0.3")
+            implementation("media.kamel:kamel-decoder-image-bitmap:1.0.3")
+            implementation("media.kamel:kamel-decoder-image-vector:1.0.3")
+            implementation("media.kamel:kamel-decoder-animated-image:1.0.3")
 
         }
 

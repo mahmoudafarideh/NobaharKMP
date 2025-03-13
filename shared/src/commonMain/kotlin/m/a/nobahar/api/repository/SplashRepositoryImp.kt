@@ -8,7 +8,6 @@ import m.a.nobahar.domain.repository.HomeCommunicationRepository
 import m.a.nobahar.domain.repository.SplashRepository
 import m.a.nobahar.domain.storage.LocalStorage
 import m.a.nobahar.domain.storage.optional
-import m.a.nobahar.ui.logInfo
 
 class SplashRepositoryImp(
     private val splashApi: SplashApi,
@@ -20,7 +19,6 @@ class SplashRepositoryImp(
     override suspend fun getSplash() {
         val firebaseToken = localStorage.optional<String>(PrefKeys.FirebaseToken)
         val deviceId = localStorage.optional<Long>(PrefKeys.DeviceId)
-        logInfo("Splash", "${deviceId.getValue()} ${firebaseToken.getValue()}")
         val splashData = splashApi.getSplash(
             firebaseToken.getValue(),
             getAppInfo.version,

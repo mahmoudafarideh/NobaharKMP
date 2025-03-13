@@ -156,7 +156,7 @@ class MediaPlayerRepositoryImp(
         kotlin.runCatching { stop() }
     }
 
-    @OptIn(UnstableApi::class)
+    @androidx.annotation.OptIn(UnstableApi::class)
     override fun release() {
         poemAudioInfo = null
         audioSync = emptyList()
