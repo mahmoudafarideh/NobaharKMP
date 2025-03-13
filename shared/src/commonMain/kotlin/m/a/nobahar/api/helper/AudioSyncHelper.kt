@@ -2,7 +2,7 @@ package m.a.nobahar.api.helper
 
 import m.a.nobahar.api.contract.PoemApi
 import m.a.nobahar.api.model.SyncAudioDto
-import nl.adaptivity.xmlutil.serialization.XML
+
 
 class AudioSyncHelper(private val poemApi: PoemApi) {
 
@@ -17,7 +17,7 @@ class AudioSyncHelper(private val poemApi: PoemApi) {
 
     private fun parseVerseOrderToStartTime(xmlString: String): List<Pair<Int, Int>> {
         val verseList = mutableListOf<Pair<Int, Int>>()
-        val audioSync = XML.decodeFromString(SyncAudioDto.serializer(), xmlString)
+        val audioSync = parseXML(SyncAudioDto.serializer(), xmlString)
         audioSync.audioList.poemAudio.syncArray.forEach {
             verseList.add(it.verseOrder to it.audioMilliseconds)
         }

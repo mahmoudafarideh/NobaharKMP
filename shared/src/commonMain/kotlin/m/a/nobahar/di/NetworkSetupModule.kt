@@ -18,7 +18,6 @@ import io.ktor.http.HttpProtocolVersion
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.KotlinxSerializationConverter
 import io.ktor.serialization.kotlinx.json.json
-import io.ktor.serialization.kotlinx.xml.xml
 import io.ktor.util.date.GMTDate
 import io.ktor.utils.io.ByteReadChannel
 import io.ktor.utils.io.InternalAPI
@@ -33,6 +32,7 @@ const val API_URL = "https://nobahar.app/api/"
 
 @OptIn(ExperimentalSerializationApi::class)
 val networkModules = module {
+
     single {
         Json {
             this.ignoreUnknownKeys = true
@@ -49,13 +49,8 @@ val networkModules = module {
             }
             install(ContentNegotiation) {
                 json(get<Json>())
-                xml()
-                register(
-                    ContentType.Text.Html, KotlinxSerializationConverter(get<Json>())
-                )
-                register(
-                    ContentType.Text.Plain, KotlinxSerializationConverter(get<Json>())
-                )
+                register(ContentType.Text.Html, KotlinxSerializationConverter(get<Json>()))
+                register(ContentType.Text.Plain, KotlinxSerializationConverter(get<Json>()))
             }
 
             install(DefaultRequest) {
@@ -75,8 +70,8 @@ val networkModules = module {
 
             receivePipeline.intercept(HttpReceivePipeline.Before) {
                 val newHeaders = Headers.build {
-                    appendAll(it.headers) // Copy original headers
-                    remove("Content-Length")    // Remove Content-Length
+                    appendAll(it.headers)
+                    remove("Content-Length")
                 }
                 this.proceedWith(ContentLenLessHttpResponse(it, newHeaders))
             }
